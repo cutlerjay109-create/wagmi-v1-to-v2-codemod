@@ -29,7 +29,7 @@ One wrong change could break the entire app.
 
 ## Our Solution
 
-We built a codemod — a smart automated script — that reads your codebase and
+We built a codemod using jssg (JavaScript ast-grep) — a smart automated script — that reads your codebase and
 applies all these changes automatically, in seconds, with zero false positives.
 
 ### The 8 Transforms We Built
