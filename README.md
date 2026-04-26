@@ -1,6 +1,6 @@
 # wagmi v1 → v2 Codemod
 
-Automatically migrates your codebase from wagmi v1 to wagmi v2.
+Automatically migrates your codebase from wagmi v1 to wagmi v2 using jssg (JavaScript ast-grep).
 
 ## What it does
 
@@ -17,27 +17,22 @@ Automatically migrates your codebase from wagmi v1 to wagmi v2.
 
 ## Usage
 
-### Run a single transform
-
+### Run the full migration workflow
 ```bash
-npx jscodeshift -t transforms/rename-hooks.ts --parser=tsx src/
+codemod workflow run -w workflow.yaml --target ./src
 ```
 
-### Run all transforms
-
+### Run from the Codemod Registry
 ```bash
-npx jscodeshift -t transforms/rename-hooks.ts --parser=tsx src/
-npx jscodeshift -t transforms/rename-connectors.ts --parser=tsx src/
-npx jscodeshift -t transforms/fix-imports.ts --parser=tsx src/
-npx jscodeshift -t transforms/fix-use-network.ts --parser=tsx src/
-npx jscodeshift -t transforms/fix-tanstack-query.ts --parser=tsx src/
-npx jscodeshift -t transforms/fix-account-effect.ts --parser=tsx src/
-npx jscodeshift -t transforms/fix-create-config.ts --parser=tsx src/
-npx jscodeshift -t transforms/fix-prepare-hooks.ts --parser=tsx src/
+npx codemod wagmi-v1-to-v2-cutlerjay109 --target ./src
+```
+
+### Run a single transform
+```bash
+codemod workflow run -w workflow.yaml --target ./src --only rename-hooks
 ```
 
 ## Run tests
-
 ```bash
 npm test
 ```
@@ -49,7 +44,15 @@ Some changes require manual review:
 - `useToken` → replace with `useReadContracts`
 - Custom connectors → follow the wagmi v2 connector guide
 - Add `QueryClientProvider` from `@tanstack/react-query` to your app root
+- The AI step in the workflow handles most of these automatically
 
 ## Coverage
 
-Automates approximately 80-85% of the wagmi v1 → v2 migration.
+Automates approximately 80-85% of the wagmi v1 → v2 migration deterministically.
+The remaining 15% is handled by the built-in AI step in the workflow.
+
+## Tech Stack
+
+- **jssg** (JavaScript ast-grep) — AST-based code transformation engine
+- **Codemod CLI** — workflow orchestration
+- **Jest** — transform testing
