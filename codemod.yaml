@@ -1,6 +1,6 @@
 schema_version: "1.0"
 name: "wagmi-v1-to-v2-cutlerjay109"
-version: "2.0.0"
+version: "2.1.0"
 description: "Automatically migrates your codebase from wagmi v1 to wagmi v2"
 author: "cutlerjay109-create"
 license: "MIT"
