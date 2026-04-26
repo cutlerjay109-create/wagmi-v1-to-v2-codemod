@@ -153,9 +153,7 @@ npx codemod wagmi-v1-to-v2-cutlerjay109 -t ./src
 
 ### Run individual transforms
 ```bash
-npx jscodeshift -t transforms/rename-hooks.ts --parser=tsx src/
-npx jscodeshift -t transforms/fix-imports.ts --parser=tsx src/
-npx jscodeshift -t transforms/fix-tanstack-query.ts --parser=tsx src/
+codemod workflow run -w workflow.yaml --target ./src
 ```
 
 ### Run tests
