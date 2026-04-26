@@ -1,0 +1,26 @@
+{
+  "name": "wagmi-v1-to-v2-codemod",
+  "version": "1.0.0",
+  "description": "Codemod to migrate wagmi v1 to v2",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc"
+  },
+  "keywords": [
+    "codemod",
+    "wagmi",
+    "migration"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/jscodeshift": "^17.3.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.7.0",
+    "jscodeshift": "^0.15.0",
+    "ts-jest": "^29.4.9",
+    "typescript": "^5.0.0"
+  }
+}
