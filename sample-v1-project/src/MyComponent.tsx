@@ -18,7 +18,7 @@ export function MyComponent() {
 
   const { data } = useReadContract({
     address: '0x123',
-    abi: erc20ABI,
+    abi: erc20Abi,
     functionName: 'balanceOf',
     args: [address],
 
@@ -30,15 +30,13 @@ export function MyComponent() {
 
   const { data } = useSimulateContract({
     address: '0x123',
-    abi: erc20ABI,
+    abi: erc20Abi,
     functionName: 'transfer',
     args: ['0x456', 100n],
   })
 
   const { write } = useWriteContract(data)
-
   const { switchNetwork } = useSwitchChain()
-
   const { isLoading } = useWaitForTransactionReceipt({
     hash: '0x456',
 
@@ -49,7 +47,7 @@ export function MyComponent() {
 
   useWatchContractEvent({
     address: '0x123',
-    abi: erc20ABI,
+    abi: erc20Abi,
     eventName: 'Transfer',
     listener(log) {
       console.log(log)

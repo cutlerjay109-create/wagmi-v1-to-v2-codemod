@@ -6,7 +6,7 @@ import { injected } from 'wagmi/connectors'
 import { walletConnect } from 'wagmi/connectors'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-const { chains, publicClient } = configureChains(
+const { chains, publicClient } = /* configureChains removed in v2 - use transports in createConfig */(
   [mainnet, sepolia],
   [publicProvider()]
 )

@@ -5,53 +5,114 @@ nodes:
     type: automatic
     steps:
       - name: "Rename hooks"
-        run: "npx jscodeshift -t transforms/rename-hooks.ts --parser=tsx --extensions=ts,tsx ."
+        js-ast-grep:
+          js_file: "jssg/rename-hooks.ts"
+          language: "tsx"
+          include:
+            - "**/*.ts"
+            - "**/*.tsx"
 
   - id: rename-connectors
-    name: Rename connectors
+    name: Rename connectors from classes to functions
     type: automatic
     steps:
       - name: "Rename connectors"
-        run: "npx jscodeshift -t transforms/rename-connectors.ts --parser=tsx --extensions=ts,tsx ."
+        js-ast-grep:
+          js_file: "jssg/rename-connectors.ts"
+          language: "tsx"
+          include:
+            - "**/*.ts"
+            - "**/*.tsx"
 
   - id: fix-imports
-    name: Fix imports
+    name: Fix import paths
     type: automatic
     steps:
       - name: "Fix imports"
-        run: "npx jscodeshift -t transforms/fix-imports.ts --parser=tsx --extensions=ts,tsx ."
+        js-ast-grep:
+          js_file: "jssg/fix-imports.ts"
+          language: "tsx"
+          include:
+            - "**/*.ts"
+            - "**/*.tsx"
 
   - id: fix-use-network
-    name: Fix useNetwork
+    name: Replace useNetwork with useAccount and useConfig
     type: automatic
     steps:
       - name: "Fix useNetwork"
-        run: "npx jscodeshift -t transforms/fix-use-network.ts --parser=tsx --extensions=ts,tsx ."
+        js-ast-grep:
+          js_file: "jssg/fix-use-network.ts"
+          language: "tsx"
+          include:
+            - "**/*.ts"
+            - "**/*.tsx"
 
   - id: fix-tanstack-query
-    name: Fix TanStack Query params
+    name: Move TanStack Query params into query object
     type: automatic
     steps:
       - name: "Fix TanStack Query"
-        run: "npx jscodeshift -t transforms/fix-tanstack-query.ts --parser=tsx --extensions=ts,tsx ."
+        js-ast-grep:
+          js_file: "jssg/fix-tanstack-query.ts"
+          language: "tsx"
+          include:
+            - "**/*.ts"
+            - "**/*.tsx"
 
   - id: fix-account-effect
-    name: Fix account effect
+    name: Move callbacks into useAccountEffect
     type: automatic
     steps:
       - name: "Fix account effect"
-        run: "npx jscodeshift -t transforms/fix-account-effect.ts --parser=tsx --extensions=ts,tsx ."
+        js-ast-grep:
+          js_file: "jssg/fix-account-effect.ts"
+          language: "tsx"
+          include:
+            - "**/*.ts"
+            - "**/*.tsx"
 
   - id: fix-create-config
-    name: Fix createConfig
+    name: Fix createConfig and remove configureChains
     type: automatic
     steps:
       - name: "Fix createConfig"
-        run: "npx jscodeshift -t transforms/fix-create-config.ts --parser=tsx --extensions=ts,tsx ."
+        js-ast-grep:
+          js_file: "jssg/fix-create-config.ts"
+          language: "tsx"
+          include:
+            - "**/*.ts"
+            - "**/*.tsx"
 
   - id: fix-prepare-hooks
-    name: Fix prepare hooks
+    name: Replace prepare hooks with simulate and estimate
     type: automatic
     steps:
       - name: "Fix prepare hooks"
-        run: "npx jscodeshift -t transforms/fix-prepare-hooks.ts --parser=tsx --extensions=ts,tsx ."
+        js-ast-grep:
+          js_file: "jssg/fix-prepare-hooks.ts"
+          language: "tsx"
+          include:
+            - "**/*.ts"
+            - "**/*.tsx"
+
+  - id: ai-cleanup
+    name: AI cleanup for edge cases
+    type: automatic
+    depends_on:
+      - fix-prepare-hooks
+    steps:
+      - name: "AI handles remaining edge cases"
+        ai:
+          prompt: |
+            You are migrating a codebase from wagmi v1 to wagmi v2.
+            The deterministic codemods have already run.
+            Now handle these remaining edge cases:
+
+            1. useBalance({ token: '0x...' }) -> replace with useReadContracts with ERC20 ABI
+            2. useToken({ address }) -> replace with useReadContracts (name, symbol, decimals, totalSupply)
+            3. Any remaining useNetwork() calls not yet replaced
+            4. Add QueryClientProvider from @tanstack/react-query to app root if missing
+            5. Fix any broken imports
+
+            Make all changes directly. Add TODO comments where manual review is needed.
