@@ -1,0 +1,10 @@
+{
+  "name": "@cutlerjay109/wagmi-v1-to-v2",
+  "version": "1.0.0",
+  "description": "Automatically migrates your codebase from wagmi v1 to wagmi v2",
+  "engine": "jscodeshift",
+  "meta": {
+    "tags": ["wagmi", "migration", "web3", "ethereum", "react"],
+    "git": "https://github.com/cutlerjay109-create/wagmi-v1-to-v2-codemod"
+  }
+}

@@ -1,0 +1,57 @@
+version: "1"
+nodes:
+  - id: rename-hooks
+    name: Rename wagmi v1 hooks to v2
+    type: automatic
+    steps:
+      - name: "Rename hooks"
+        run: "npx jscodeshift -t transforms/rename-hooks.ts --parser=tsx --extensions=ts,tsx ."
+
+  - id: rename-connectors
+    name: Rename connectors
+    type: automatic
+    steps:
+      - name: "Rename connectors"
+        run: "npx jscodeshift -t transforms/rename-connectors.ts --parser=tsx --extensions=ts,tsx ."
+
+  - id: fix-imports
+    name: Fix imports
+    type: automatic
+    steps:
+      - name: "Fix imports"
+        run: "npx jscodeshift -t transforms/fix-imports.ts --parser=tsx --extensions=ts,tsx ."
+
+  - id: fix-use-network
+    name: Fix useNetwork
+    type: automatic
+    steps:
+      - name: "Fix useNetwork"
+        run: "npx jscodeshift -t transforms/fix-use-network.ts --parser=tsx --extensions=ts,tsx ."
+
+  - id: fix-tanstack-query
+    name: Fix TanStack Query params
+    type: automatic
+    steps:
+      - name: "Fix TanStack Query"
+        run: "npx jscodeshift -t transforms/fix-tanstack-query.ts --parser=tsx --extensions=ts,tsx ."
+
+  - id: fix-account-effect
+    name: Fix account effect
+    type: automatic
+    steps:
+      - name: "Fix account effect"
+        run: "npx jscodeshift -t transforms/fix-account-effect.ts --parser=tsx --extensions=ts,tsx ."
+
+  - id: fix-create-config
+    name: Fix createConfig
+    type: automatic
+    steps:
+      - name: "Fix createConfig"
+        run: "npx jscodeshift -t transforms/fix-create-config.ts --parser=tsx --extensions=ts,tsx ."
+
+  - id: fix-prepare-hooks
+    name: Fix prepare hooks
+    type: automatic
+    steps:
+      - name: "Fix prepare hooks"
+        run: "npx jscodeshift -t transforms/fix-prepare-hooks.ts --parser=tsx --extensions=ts,tsx ."
