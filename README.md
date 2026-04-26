@@ -1,4 +1,6 @@
-# DEMO LINK → https://youtu.be/5ClQGg7vVyA?si=1n6hgVLV5Aqffhgh
+## Demo
+
+▶️ [Watch the full demo on YouTube](https://youtu.be/5ClQGg7vVyA?si=1n6hgVLV5Aqffhgh)
 
 # wagmi v1 → v2 Codemod
 
